@@ -21,102 +21,862 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
   <style>
-    body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-    .sidebar { min-width: 260px; max-width: 320px; }
-    .content { max-width: 1100px; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial;
+    }
+    .sidebar {
+      min-width: 260px;
+      max-width: 320px;
+    }
+    .content {
+      max-width: 1200px;
+    }
   </style>
 </head>
-<body class="bg-gray-50 h-screen">
+<body class="bg-slate-100 h-screen">
 
   <div class="flex h-screen">
-    <!-- Sidebar -->
-    <aside class="sidebar bg-white border-r">
-      <div class="p-6">
-        <h1 class="text-2xl font-semibold">Calculadora de Probabilidades</h1>
-        <p class="text-sm text-gray-500 mt-1">Interactividad y gráficos</p>
-        <div class="mt-6 space-y-2">
-          <button data-target="home" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Inicio</button>
-          <button data-target="conteo" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Técnicas de conteo</button>
-          <button data-target="prob_basica" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Conceptos básicos</button>
-          <button data-target="condicional" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Probabilidad condicional</button>
-          <button data-target="bayes" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Teorema de Bayes</button>
-          <button data-target="binomial" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Binomial</button>
-          <button data-target="nbinomial" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Binomial Negativa</button>
-          <button data-target="poisson" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Poisson</button>
-          <button data-target="exponencial" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Exponencial</button>
-          <button data-target="normal" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Normal</button>
-          <button data-target="about" class="w-full text-left px-3 py-2 rounded-md hover:bg-gray-100 block">Acerca de</button>
+    <!-- SIDEBAR -->
+    <aside class="sidebar bg-gradient-to-b from-blue-900 via-blue-800 to-slate-900 text-slate-50 shadow-xl">
+      <div class="p-6 flex flex-col h-full">
+        <div>
+          <h1 class="text-2xl font-semibold tracking-tight">
+            Calculadora de Probabilidades
+          </h1>
+          <p class="text-xs text-blue-200 mt-1">
+            Distribuciones · Gráficos · Interpretación
+          </p>
+
+          <div class="mt-6 space-y-1 text-sm">
+            <p class="uppercase text-[11px] tracking-widest text-blue-200 mb-1">
+              Navegación
+            </p>
+            <button data-target="home"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Inicio
+            </button>
+            <button data-target="conteo"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Técnicas de conteo
+            </button>
+            <button data-target="prob_basica"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Conceptos básicos
+            </button>
+            <button data-target="condicional"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Probabilidad condicional
+            </button>
+            <button data-target="bayes"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Teorema de Bayes
+            </button>
+            <button data-target="binomial"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Binomial
+            </button>
+            <button data-target="nbinomial"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Binomial negativa
+            </button>
+            <button data-target="poisson"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Poisson
+            </button>
+            <button data-target="exponencial"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Exponencial
+            </button>
+            <button data-target="normal"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Normal
+            </button>
+            <button data-target="about"
+                    class="w-full text-left px-3 py-2 rounded-md hover:bg-blue-800/70 transition">
+              Acerca de
+            </button>
+          </div>
         </div>
 
-        <div class="mt-6 text-xs text-gray-400">
-          Curso: Estadística I<br>
-          Profesor: Ing. Héctor A. Macz
+        <div class="mt-auto text-[11px] text-blue-200 border-t border-blue-700/60 pt-3">
+          Facultad de Ingeniería en Sistemas de Información<br>
+          Curso: <span class="font-semibold">Estadística I – Ciclo IV</span><br>
+          Docente: Ing. Héctor A. Macz
         </div>
       </div>
     </aside>
 
-    <!-- Main content -->
-    <main class="flex-1 p-8 overflow-auto">
-      <div id="app" class="content mx-auto">
+    <!-- MAIN -->
+    <main class="flex-1 p-6 md:p-10 overflow-auto">
+      <div id="app" class="content mx-auto space-y-6">
 
         <!-- HOME -->
         <section id="home" class="page">
-          <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-2xl font-semibold">Calculadora de Distribuciones de Probabilidad</h2>
-            <p class="mt-2 text-gray-600">
-              Página educativa interactiva que calcula probabilidades, muestra fórmulas y grafica las distribuciones.
-              Selecciona un tema en el menú lateral para comenzar.
+          <div class="bg-white/90 backdrop-blur rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-3xl font-semibold text-slate-900 flex items-center gap-2">
+              Calculadora de Distribuciones de Probabilidad
+              <span class="inline-flex text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-700 border border-blue-200">
+                Proyecto final
+              </span>
+            </h2>
+            <p class="mt-3 text-slate-600">
+              Esta página web interactiva permite calcular probabilidades para distintas
+              distribuciones estadísticas, visualizar sus gráficos y reforzar los
+              conceptos vistos en el curso de Estadística I.
             </p>
-          </div>
-        </section>
 
-        <!-- CONTEO -->
-        <section id="conteo" class="page hidden">
-          <div class="bg-white rounded-lg shadow p-6">
-            <h2 class="text-xl font-semibold">Técnicas de conteo</h2>
-            <p class="text-gray-600 mt-1">Permutaciones, permutaciones con r y combinaciones.</p>
-
-            <div class="mt-4 grid md:grid-cols-2 gap-4">
-              <div class="p-4 border rounded">
-                <h3 class="font-semibold">Permutaciones (n!)</h3>
-                <label class="block mt-2 text-sm">n:
-                  <input id="perm_n" type="number" class="mt-1 block w-full border rounded px-2 py-1" />
-                </label>
-                <button id="btn_perm" class="mt-3 px-3 py-1 bg-indigo-600 text-white rounded">Calcular</button>
-                <div id="perm_result" class="mt-3 text-gray-700"></div>
+            <div class="mt-6 grid md:grid-cols-3 gap-4">
+              <div class="p-4 rounded-xl border border-blue-100 bg-gradient-to-br from-blue-50 to-slate-50">
+                <h3 class="font-semibold text-blue-800 text-sm">¿Qué puedo hacer aquí?</h3>
+                <ul class="mt-2 text-sm text-slate-700 list-disc list-inside space-y-1">
+                  <li>Calcular permutaciones y combinaciones.</li>
+                  <li>Resolver probabilidades simples, condicionales y con Bayes.</li>
+                  <li>Trabajar con Binomial, Binomial negativa, Poisson, Exponencial y Normal.</li>
+                </ul>
               </div>
-
-              <div class="p-4 border rounded">
-                <h3 class="font-semibold">Permutaciones con r (nPr)</h3>
-                <label class="block mt-2 text-sm">n:
-                  <input id="npr_n" type="number" class="mt-1 block w-full border rounded px-2 py-1" />
-                </label>
-                <label class="block mt-2 text-sm">r:
-                  <input id="npr_r" type="number" class="mt-1 block w-full border rounded px-2 py-1" />
-                </label>
-                <button id="btn_npr" class="mt-3 px-3 py-1 bg-indigo-600 text-white rounded">Calcular</button>
-                <div id="npr_result" class="mt-3 text-gray-700"></div>
+              <div class="p-4 rounded-xl border border-blue-100 bg-white">
+                <h3 class="font-semibold text-blue-800 text-sm">Cómo usarla</h3>
+                <ol class="mt-2 text-sm text-slate-700 list-decimal list-inside space-y-1">
+                  <li>Elige un tema en el menú lateral azul.</li>
+                  <li>Lee la explicación corta del concepto.</li>
+                  <li>Ingresa los datos en los campos de entrada.</li>
+                  <li>Presiona <span class="font-semibold">Calcular</span> o <span class="font-semibold">Graficar</span>.</li>
+                </ol>
               </div>
-
-              <div class="p-4 border rounded">
-                <h3 class="font-semibold">Combinaciones (nCr)</h3>
-                <label class="block mt-2 text-sm">n:
-                  <input id="ncr_n" type="number" class="mt-1 block w-full border rounded px-2 py-1" />
-                </label>
-                <label class="block mt-2 text-sm">r:
-                  <input id="ncr_r" type="number" class="mt-1 block w-full border rounded px-2 py-1" />
-                </label>
-                <button id="btn_ncr" class="mt-3 px-3 py-1 bg-indigo-600 text-white rounded">Calcular</button>
-                <div id="ncr_result" class="mt-3 text-gray-700"></div>
+              <div class="p-4 rounded-xl border border-blue-100 bg-white">
+                <h3 class="font-semibold text-blue-800 text-sm">Datos del estudiante</h3>
+                <p class="mt-2 text-sm text-slate-700">
+                  Nombre: <strong>Luis David Rivera Villatoro</strong><br>
+                  Carné: <strong>0902 21 20164</strong><br>
+                  Curso: <strong>Estadística I</strong><br>
+                  Proyecto: <strong>Calculadora de distribuciones de probabilidad</strong>
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Para ahorrar espacio no repito todo aquí, pero tú pega TODO el HTML completo que te di antes:
-             prob_basica, condicional, bayes, binomial, nbinomial, poisson, exponencial, normal, about.
-             Usa exactamente el mismo index.html que ya te había enviado.
-        -->
+        <!-- CONTEO -->
+        <section id="conteo" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Técnicas de conteo</h2>
+            <p class="mt-2 text-slate-600 text-sm">
+              Las técnicas de conteo permiten determinar el número de formas posibles
+              de organizar o seleccionar elementos sin listar cada caso manualmente.
+              Son la base para muchos problemas de probabilidad.
+            </p>
+
+            <div class="mt-4 grid lg:grid-cols-3 gap-4">
+              <!-- Permutaciones -->
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <h3 class="font-semibold text-blue-800">Permutaciones (n!)</h3>
+                <p class="mt-1 text-xs text-slate-600">
+                  Se utilizan cuando queremos ordenar <strong>todos</strong> los elementos
+                  y el orden <strong>sí importa</strong>.
+                </p>
+                <p class="mt-1 text-xs text-slate-700">
+                  Fórmula: $P(n)=n!$
+                </p>
+                <label class="block mt-2 text-sm">n (número de elementos):
+                  <input id="perm_n" type="number"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500" />
+                </label>
+                <button id="btn_perm"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700">
+                  Calcular
+                </button>
+                <div id="perm_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Interpretación: el resultado indica cuántos ordenamientos diferentes
+                  se pueden formar con los n elementos.
+                </p>
+              </div>
+
+              <!-- Permutaciones con r -->
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <h3 class="font-semibold text-blue-800">Permutaciones con r (nPr)</h3>
+                <p class="mt-1 text-xs text-slate-600">
+                  Se usan cuando se seleccionan solo <strong>r elementos</strong> de n
+                  y el orden <strong>importa</strong>.
+                </p>
+                <p class="mt-1 text-xs text-slate-700">
+                  Fórmula: $P(n,r)=\\dfrac{n!}{(n-r)!}$
+                </p>
+                <label class="block mt-2 text-sm">n:
+                  <input id="npr_n" type="number"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500" />
+                </label>
+                <label class="block mt-2 text-sm">r:
+                  <input id="npr_r" type="number"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500" />
+                </label>
+                <button id="btn_npr"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700">
+                  Calcular
+                </button>
+                <div id="npr_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Interpretación: cuántas listas ordenadas de tamaño r se pueden formar
+                  a partir de n elementos.
+                </p>
+              </div>
+
+              <!-- Combinaciones -->
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <h3 class="font-semibold text-blue-800">Combinaciones (nCr)</h3>
+                <p class="mt-1 text-xs text-slate-600">
+                  Se usan cuando el <strong>orden no importa</strong>, solo interesa el grupo.
+                </p>
+                <p class="mt-1 text-xs text-slate-700">
+                  Fórmula: $C(n,r)=\\dfrac{n!}{r!(n-r)!}$
+                </p>
+                <label class="block mt-2 text-sm">n:
+                  <input id="ncr_n" type="number"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">r:
+                  <input id="ncr_r" type="number"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <button id="btn_ncr"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700">
+                  Calcular
+                </button>
+                <div id="ncr_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Interpretación: número de grupos posibles de r elementos tomados de n,
+                  sin importar el orden.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROBABILIDAD BÁSICA -->
+        <section id="prob_basica" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Conceptos básicos de probabilidad</h2>
+            <p class="mt-2 text-slate-600 text-sm">
+              La probabilidad de un evento mide qué tan probable es que ocurra, en una escala
+              de 0 a 1. En esta sección se incluyen las ideas de casos favorables y posibles,
+              complementos, eventos independientes y reglas de suma y producto.
+            </p>
+
+            <div class="mt-4 grid md:grid-cols-3 gap-4">
+              <!-- Probabilidad simple -->
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <h3 class="font-semibold text-blue-800 text-sm">Probabilidad simple</h3>
+                <p class="mt-1 text-xs text-slate-600">
+                  Cuando todos los resultados son igualmente probables:
+                  $P(A)=\\dfrac{\\text{casos favorables}}{\\text{casos posibles}}$.
+                </p>
+                <label class="block mt-2 text-sm">Casos favorables:
+                  <input id="pb_fav" type="number"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">Casos posibles:
+                  <input id="pb_pos" type="number"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <button id="btn_pb"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700">
+                  Calcular P(A)
+                </button>
+                <div id="pb_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Interpretación: resultado cercano a 0 indica que el evento es poco probable;
+                  cercano a 1, muy probable.
+                </p>
+              </div>
+
+              <!-- Complemento -->
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <h3 class="font-semibold text-blue-800 text-sm">Complemento de un evento</h3>
+                <p class="mt-1 text-xs text-slate-600">
+                  El complemento de A, denotado ¬A, es “A no ocurre”.
+                  Se cumple: $P(\\lnot A)=1-P(A)$.
+                </p>
+                <label class="block mt-2 text-sm">P(A):
+                  <input id="comp_p" type="number" step="0.01"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <button id="btn_comp"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700">
+                  Calcular P(¬A)
+                </button>
+                <div id="comp_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Muchas veces es más fácil calcular el complemento y luego restar de 1.
+                </p>
+              </div>
+
+              <!-- Independencia -->
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <h3 class="font-semibold text-blue-800 text-sm">Eventos independientes</h3>
+                <p class="mt-1 text-xs text-slate-600">
+                  Dos eventos A y B son independientes si
+                  $P(A\\cap B)=P(A)P(B)$.
+                </p>
+                <label class="block mt-2 text-sm">P(A):
+                  <input id="ind_pa" type="number" step="0.0001"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">P(B):
+                  <input id="ind_pb" type="number" step="0.0001"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">P(A∩B):
+                  <input id="ind_pab" type="number" step="0.0001"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <button id="btn_ind"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700">
+                  Verificar independencia
+                </button>
+                <div id="ind_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Si la igualdad no se cumple, los eventos son dependientes.
+                </p>
+              </div>
+            </div>
+
+            <div class="mt-6 grid md:grid-cols-2 gap-4 text-xs text-slate-600">
+              <div class="p-4 rounded-xl bg-slate-50 border border-blue-100">
+                <h3 class="font-semibold text-blue-800 text-sm">Regla de la suma</h3>
+                <ul class="list-disc list-inside space-y-1 mt-1">
+                  <li><strong>Eventos mutuamente excluyentes:</strong> $P(A\\cup B)=P(A)+P(B)$.</li>
+                  <li><strong>Eventos no excluyentes:</strong> $P(A\\cup B)=P(A)+P(B)-P(A\\cap B)$.</li>
+                </ul>
+              </div>
+              <div class="p-4 rounded-xl bg-slate-50 border border-blue-100">
+                <h3 class="font-semibold text-blue-800 text-sm">Regla del producto</h3>
+                <ul class="list-disc list-inside space-y-1 mt-1">
+                  <li><strong>Independientes:</strong> $P(A\\cap B)=P(A)P(B)$.</li>
+                  <li><strong>Dependientes:</strong> $P(A\\cap B)=P(A)P(B|A)$.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- PROBABILIDAD CONDICIONAL -->
+        <section id="condicional" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Probabilidad condicional</h2>
+            <p class="mt-2 text-slate-600 text-sm">
+              La probabilidad condicional mide la probabilidad de que ocurra un evento A
+              sabiendo que ya ocurrió otro evento B. Se denota $P(A|B)$ y se define como:
+              $P(A|B)=\\dfrac{P(A\\cap B)}{P(B)}$, siempre que $P(B)&gt;0$.
+            </p>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+              <!-- Calculadora directa -->
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <h3 class="font-semibold text-blue-800 text-sm">Fórmula directa</h3>
+                <p class="mt-1 text-xs text-slate-600">
+                  Ingresa $P(A\\cap B)$ y $P(B)$ para obtener $P(A|B)$.
+                </p>
+                <label class="block mt-2 text-sm">P(A∩B):
+                  <input id="pc_pab" type="number" step="0.0001"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">P(B):
+                  <input id="pc_pb" type="number" step="0.0001"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <button id="btn_pc"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700">
+                  Calcular P(A|B)
+                </button>
+                <div id="pc_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Interpretación: probabilidad de que A ocurra bajo la condición
+                  de que B ya ha ocurrido.
+                </p>
+              </div>
+
+              <!-- Tabla de contingencia -->
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <h3 class="font-semibold text-blue-800 text-sm">Tabla de contingencia</h3>
+                <p class="mt-1 text-xs text-slate-600">
+                  Introduce los conteos de una tabla 2×2. La calculadora obtiene
+                  probabilidades marginales y condicionales.
+                </p>
+                <div class="grid grid-cols-2 gap-2 text-xs mt-2">
+                  <label>A y B:
+                    <input id="tab_ab" type="number"
+                           class="mt-1 w-full border rounded px-2 py-1 border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                  </label>
+                  <label>A y ¬B:
+                    <input id="tab_anb" type="number"
+                           class="mt-1 w-full border rounded px-2 py-1 border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                  </label>
+                  <label>¬A y B:
+                    <input id="tab_nab" type="number"
+                           class="mt-1 w-full border rounded px-2 py-1 border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                  </label>
+                  <label>¬A y ¬B:
+                    <input id="tab_nanb" type="number"
+                           class="mt-1 w-full border rounded px-2 py-1 border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                  </label>
+                </div>
+                <button id="btn_tab"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700">
+                  Calcular desde tabla
+                </button>
+                <div id="tab_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Ejemplo típico: tablas de encuestas donde se cruzan género, preferencia,
+                  resultado de un test, etc.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BAYES -->
+        <section id="bayes" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Teorema de Bayes</h2>
+            <p class="mt-2 text-slate-600 text-sm">
+              El teorema de Bayes permite actualizar una probabilidad inicial (previa)
+              cuando se recibe nueva información (evidencia). La versión clásica es:
+              $$P(A|B)=\\dfrac{P(B|A)P(A)}{P(B)}$$
+              donde $P(A)$ es la probabilidad previa, $P(B|A)$ la probabilidad de la evidencia
+              si A es cierto y $P(B)$ la probabilidad total de la evidencia.
+            </p>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <h3 class="font-semibold text-blue-800 text-sm">Calculadora de Bayes</h3>
+                <p class="mt-1 text-xs text-slate-600">
+                  Ideal para problemas de diagnósticos médicos, pruebas de calidad y confiabilidad.
+                </p>
+                <label class="block mt-2 text-sm">P(A) (previa):
+                  <input id="bayes_pa" type="number" step="0.0001"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">P(B|A) (verdadero positivo / sensibilidad):
+                  <input id="bayes_ba" type="number" step="0.0001"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">P(B|¬A) (falso positivo):
+                  <input id="bayes_bna" type="number" step="0.0001"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <button id="btn_bayes"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-sm rounded-md shadow hover:bg-blue-700">
+                  Calcular P(A|B)
+                </button>
+                <div id="bayes_result" class="mt-3 text-sm text-slate-800"></div>
+              </div>
+
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50 text-xs text-slate-600">
+                <h3 class="font-semibold text-blue-800 text-sm">Interpretación típica</h3>
+                <p class="mt-2">
+                  En un contexto de diagnóstico médico:
+                </p>
+                <ul class="list-disc list-inside space-y-1 mt-1">
+                  <li><strong>A</strong>: el paciente tiene la enfermedad.</li>
+                  <li><strong>B</strong>: el resultado del examen es positivo.</li>
+                  <li>$P(A)$: prevalencia de la enfermedad en la población.</li>
+                  <li>$P(B|A)$: probabilidad de un positivo si el paciente realmente está enfermo.</li>
+                  <li>$P(B|\\lnot A)$: probabilidad de obtener un falso positivo.</li>
+                  <li>$P(A|B)$: probabilidad de estar enfermo dado que el examen salió positivo.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BINOMIAL -->
+        <section id="binomial" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Distribución binomial</h2>
+            <p class="mt-2 text-slate-600 text-sm">
+              Modela el número de éxitos en $n$ ensayos de Bernoulli independientes,
+              cada uno con probabilidad de éxito $p$. Ejemplos: número de piezas defectuosas,
+              número de respuestas correctas en un examen de opción múltiple, etc.
+            </p>
+
+            <p class="mt-2 text-xs text-slate-700">
+              Fórmula de la función de probabilidad:
+              $$P(X=k)=\\binom{n}{k}p^k(1-p)^{n-k}$$
+              donde $k=0,1,\\dots,n$.
+            </p>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <label class="block mt-2 text-sm">n (ensayos):
+                  <input id="bin_n" type="number" value="10"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">p (probabilidad de éxito):
+                  <input id="bin_p" type="number" step="0.01" min="0" max="1" value="0.5"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">k (número de éxitos):
+                  <input id="bin_k" type="number" value="3"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+
+                <div class="space-x-2 space-y-2 mt-3 flex flex-wrap">
+                  <button id="btn_bin_pmf"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X = k)
+                  </button>
+                  <button id="btn_bin_cdf"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X ≤ k)
+                  </button>
+                  <button id="btn_bin_tail"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X ≥ k)
+                  </button>
+                  <button id="btn_bin_plot"
+                          class="px-3 py-1.5 bg-emerald-600 text-white text-xs rounded-md shadow hover:bg-emerald-700">
+                    Graficar distribución
+                  </button>
+                </div>
+
+                <div id="bin_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Interpretación: el valor calculado representa la probabilidad de observar
+                  exactamente / al menos / a lo sumo k éxitos en n ensayos.
+                </p>
+              </div>
+
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <canvas id="bin_chart" height="220"></canvas>
+                <p class="mt-2 text-xs text-slate-500">
+                  La gráfica muestra la función de probabilidad (PMF) para X.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- BINOMIAL NEGATIVA -->
+        <section id="nbinomial" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Distribución binomial negativa</h2>
+            <p class="mt-2 text-slate-600 text-sm">
+              La binomial negativa modela el número de fallos antes de obtener el
+              <strong>r-ésimo éxito</strong> en una secuencia de ensayos de Bernoulli.
+              Se diferencia de la binomial simple porque fija la cantidad de éxitos
+              y la variable aleatoria es el número de fracasos.
+            </p>
+
+            <p class="mt-2 text-xs text-slate-700">
+              Fórmula:
+              $$P(X=k)=\\binom{k+r-1}{k}(1-p)^k p^r$$
+              donde k es el número de fallos antes del r-ésimo éxito.
+            </p>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <label class="block mt-2 text-sm">r (número de éxitos requeridos):
+                  <input id="nb_r" type="number" value="3"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">p (probabilidad de éxito):
+                  <input id="nb_p" type="number" step="0.01" value="0.4"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">k (fallos antes del r-ésimo éxito):
+                  <input id="nb_k" type="number" value="2"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+
+                <div class="space-x-2 mt-3">
+                  <button id="btn_nb_pmf"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X = k)
+                  </button>
+                  <button id="btn_nb_plot"
+                          class="px-3 py-1.5 bg-emerald-600 text-white text-xs rounded-md shadow hover:bg-emerald-700">
+                    Graficar distribución
+                  </button>
+                </div>
+
+                <div id="nb_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Aplicaciones: número de intentos fallidos antes de conseguir cierto
+                  número de éxitos (ventas, llamadas, etc.).
+                </p>
+              </div>
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <canvas id="nb_chart" height="220"></canvas>
+                <p class="mt-2 text-xs text-slate-500">
+                  La gráfica muestra la probabilidad de cada posible número de fallos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- POISSON -->
+        <section id="poisson" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Distribución de Poisson</h2>
+            <p class="mt-2 text-slate-600 text-sm">
+              Se utiliza para modelar el número de eventos que ocurren en un intervalo
+              de tiempo o espacio, cuando ocurren de manera independiente con una tasa
+              promedio constante $\\lambda$.
+            </p>
+            <p class="mt-2 text-xs text-slate-700">
+              Fórmula:
+              $$P(X=k)=\\dfrac{e^{-\\lambda}\\lambda^k}{k!}$$
+            </p>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <label class="block mt-2 text-sm">λ (tasa promedio):
+                  <input id="poi_lambda" type="number" step="0.1" value="2.5"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">k (número de eventos):
+                  <input id="poi_k" type="number" value="3"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+
+                <div class="space-x-2 mt-3 flex flex-wrap">
+                  <button id="btn_poi_pmf"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X = k)
+                  </button>
+                  <button id="btn_poi_cdf"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X ≤ k)
+                  </button>
+                  <button id="btn_poi_plot"
+                          class="px-3 py-1.5 bg-emerald-600 text-white text-xs rounded-md shadow hover:bg-emerald-700">
+                    Graficar distribución
+                  </button>
+                </div>
+
+                <div id="poi_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Ejemplos: número de llegadas a un cajero por hora, llamadas a un
+                  centro de atención, defectos en un tramo de cable, etc.
+                </p>
+              </div>
+
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <canvas id="poi_chart" height="220"></canvas>
+                <p class="mt-2 text-xs text-slate-500">
+                  La altura de cada barra representa la probabilidad de observar ese
+                  número de eventos en el intervalo.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- EXPONENCIAL -->
+        <section id="exponencial" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Distribución exponencial</h2>
+            <p class="mt-2 text-slate-600 text-sm">
+              La distribución exponencial describe el tiempo entre eventos sucesivos
+              en un proceso de Poisson con tasa $\\lambda$. Es una distribución continua.
+            </p>
+            <p class="mt-2 text-xs text-slate-700">
+              Función de densidad:
+              $$f(x)=\\lambda e^{-\\lambda x}, \\quad x\\ge 0$$
+              Función de distribución:
+              $$P(X&lt;x)=1-e^{-\\lambda x}$$
+            </p>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <label class="block mt-2 text-sm">λ:
+                  <input id="exp_lambda" type="number" step="0.01" value="0.5"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">x:
+                  <input id="exp_x" type="number" step="0.01" value="1"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+
+                <div class="mt-3 space-x-2">
+                  <button id="btn_exp_lt"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X &lt; x)
+                  </button>
+                  <button id="btn_exp_gt"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X &gt; x)
+                  </button>
+                </div>
+
+                <div class="mt-4 grid grid-cols-2 gap-2 text-sm">
+                  <label>a:
+                    <input id="exp_a" type="number" step="0.01" value="0.5"
+                           class="mt-1 w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                  </label>
+                  <label>b:
+                    <input id="exp_b" type="number" step="0.01" value="2"
+                           class="mt-1 w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                  </label>
+                </div>
+                <button id="btn_exp_between"
+                        class="mt-3 px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                  P(a &lt; X &lt; b)
+                </button>
+
+                <div id="exp_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  Interpretación: tiempo de espera hasta que ocurra un evento
+                  (por ejemplo, tiempo entre llegadas de clientes).
+                </p>
+              </div>
+
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <canvas id="exp_chart" height="220"></canvas>
+                <p class="mt-2 text-xs text-slate-500">
+                  La curva muestra la densidad de probabilidad para distintos tiempos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- NORMAL -->
+        <section id="normal" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Distribución normal (campana de Gauss)</h2>
+            <p class="mt-2 text-slate-600 text-sm">
+              La distribución normal es una de las más importantes en estadística.
+              Modela variables continuas que se comportan de manera simétrica alrededor
+              de una media $\\mu$ y desviación estándar $\\sigma$.
+            </p>
+            <p class="mt-2 text-xs text-slate-700">
+              Densidad:
+              $$f(x)=\\dfrac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}$$
+              Estandarización:
+              $$Z=\\dfrac{X-\\mu}{\\sigma}$$
+            </p>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <label class="block mt-2 text-sm">μ (media):
+                  <input id="norm_mu" type="number" step="0.01" value="0"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">σ (desviación estándar):
+                  <input id="norm_sigma" type="number" step="0.01" value="1"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+                <label class="block mt-2 text-sm">x:
+                  <input id="norm_x" type="number" step="0.01" value="1"
+                         class="mt-1 block w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                </label>
+
+                <div class="mt-3 space-x-2 flex flex-wrap gap-2">
+                  <button id="btn_norm_cdf"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X &lt; x)
+                  </button>
+                  <button id="btn_norm_tail"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(X &gt; x)
+                  </button>
+                  <button id="btn_norm_between"
+                          class="px-3 py-1.5 bg-blue-600 text-white text-xs rounded-md shadow hover:bg-blue-700">
+                    P(a &lt; X &lt; b)
+                  </button>
+                </div>
+
+                <div class="mt-4 grid grid-cols-2 gap-2 text-sm">
+                  <label>a:
+                    <input id="norm_a" type="number" step="0.01" value="-1"
+                           class="mt-1 w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                  </label>
+                  <label>b:
+                    <input id="norm_b" type="number" step="0.01" value="1"
+                           class="mt-1 w-full border rounded px-2 py-1 text-sm border-slate-300 focus:border-blue-500 focus:ring-blue-500"/>
+                  </label>
+                </div>
+
+                <button id="btn_norm_plot"
+                        class="mt-3 px-3 py-1.5 bg-emerald-600 text-white text-xs rounded-md shadow hover:bg-emerald-700">
+                  Graficar curva normal
+                </button>
+
+                <div id="norm_result" class="mt-3 text-sm text-slate-800"></div>
+                <p class="mt-2 text-xs text-slate-500">
+                  En muchos problemas se tabula Z y se usan tablas de la normal estándar.
+                  Aquí la calculadora aproxima la CDF numéricamente.
+                </p>
+              </div>
+
+              <div class="p-4 border border-blue-100 rounded-xl bg-slate-50">
+                <canvas id="norm_chart" height="220"></canvas>
+                <p class="mt-2 text-xs text-slate-500">
+                  La curva muestra la densidad normal. El área bajo la curva entre
+                  dos puntos representa una probabilidad.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section id="about" class="page hidden">
+          <div class="bg-white rounded-2xl shadow-lg border border-blue-100 p-6 md:p-8">
+            <h2 class="text-2xl font-semibold text-slate-900">Acerca del proyecto</h2>
+
+            <div class="mt-4 grid md:grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl bg-slate-50 border border-blue-100">
+                <h3 class="font-semibold text-blue-800 text-sm">Datos del estudiante</h3>
+                <p class="mt-2 text-sm text-slate-700">
+                  Nombre: <strong>Luis David Rivera Villatoro</strong><br>
+                  Carné: <strong>0902 21 20164</strong><br>
+                  Carrera: <strong>Ingeniería en Sistemas de Información</strong><br>
+                  Curso: <strong>Estadística I – Ciclo IV</strong><br>
+                </p>
+                <p class="mt-3 text-xs text-slate-600">
+                  Este sitio fue desarrollado como proyecto final de curso: "Calculadora de
+                  distribuciones de probabilidad", cumpliendo con los requerimientos de
+                  presentación teórica, cálculos e interpretación de resultados.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-slate-50 border border-blue-100">
+                <h3 class="font-semibold text-blue-800 text-sm">Video y bibliografía</h3>
+                <p class="mt-2 text-xs text-slate-600">
+                  Aquí se puede incrustar un video donde el estudiante explique el uso
+                  de cada sección de la página, los parámetros de entrada, los resultados
+                  y ejemplos prácticos.
+                </p>
+                <!-- Cuando tengas el video, reemplaza el src del iframe con tu enlace de YouTube -->
+                <div class="mt-3 aspect-video rounded-lg overflow-hidden border border-slate-200 bg-black/80 flex items-center justify-center text-slate-300 text-xs">
+                  <span>Espacio reservado para video explicativo del proyecto.</span>
+                </div>
+
+                <div class="mt-3 text-xs text-slate-600">
+                  <p class="font-semibold text-blue-800">Fuentes / bibliografía sugerida:</p>
+                  <ul class="list-disc list-inside mt-1 space-y-1">
+                    <li>Apuntes del curso de Estadística I.</li>
+                    <li>Libros de probabilidad y estadística (Walpole, Montgomery, etc.).</li>
+                    <li>Documentación oficial de Chart.js y MathJax.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-6 text-xs text-slate-600">
+              <p>
+                Forma de entrega: la página se publica mediante GitHub Pages en la URL:
+                <span class="font-mono bg-slate-100 px-2 py-1 rounded">
+                  https://lriverav2-a11y.github.io/calculadora-probabilidades/
+                </span>
+              </p>
+            </div>
+          </div>
+        </section>
 
       </div>
     </main>
@@ -126,5 +886,4 @@
   <script src="app.js"></script>
 </body>
 </html>
-
 
